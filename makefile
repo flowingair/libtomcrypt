@@ -154,23 +154,28 @@ src/pk/dsa/dsa_encrypt_key.o src/pk/dsa/dsa_export.o src/pk/dsa/dsa_free.o src/p
 src/pk/dsa/dsa_import_radix.o src/pk/dsa/dsa_make_key.o src/pk/dsa/dsa_shared_secret.o \
 src/pk/dsa/dsa_sign_hash.o src/pk/dsa/dsa_verify_hash.o src/pk/dsa/dsa_verify_key.o src/pk/ecc/ecc.o \
 src/pk/ecc/ecc_ansi_x963_export.o src/pk/ecc/ecc_ansi_x963_import.o src/pk/ecc/ecc_decrypt_key.o \
-src/pk/ecc/ecc_encrypt_key.o src/pk/ecc/ecc_export.o src/pk/ecc/ecc_free.o src/pk/ecc/ecc_get_size.o \
-src/pk/ecc/ecc_import.o src/pk/ecc/ecc_make_key.o src/pk/ecc/ecc_shared_secret.o \
-src/pk/ecc/ecc_sign_hash.o src/pk/ecc/ecc_sizes.o src/pk/ecc/ecc_test.o src/pk/ecc/ecc_verify_hash.o \
-src/pk/ecc/ltc_ecc_is_valid_idx.o src/pk/ecc/ltc_ecc_map.o src/pk/ecc/ltc_ecc_mul2add.o \
-src/pk/ecc/ltc_ecc_mulmod.o src/pk/ecc/ltc_ecc_mulmod_timing.o src/pk/ecc/ltc_ecc_points.o \
-src/pk/ecc/ltc_ecc_projective_add_point.o src/pk/ecc/ltc_ecc_projective_dbl_point.o \
-src/pk/katja/katja_decrypt_key.o src/pk/katja/katja_encrypt_key.o src/pk/katja/katja_export.o \
-src/pk/katja/katja_exptmod.o src/pk/katja/katja_free.o src/pk/katja/katja_import.o \
-src/pk/katja/katja_make_key.o src/pk/pkcs1/pkcs_1_i2osp.o src/pk/pkcs1/pkcs_1_mgf1.o \
-src/pk/pkcs1/pkcs_1_oaep_decode.o src/pk/pkcs1/pkcs_1_oaep_encode.o src/pk/pkcs1/pkcs_1_os2ip.o \
-src/pk/pkcs1/pkcs_1_pss_decode.o src/pk/pkcs1/pkcs_1_pss_encode.o src/pk/pkcs1/pkcs_1_v1_5_decode.o \
-src/pk/pkcs1/pkcs_1_v1_5_encode.o src/pk/rsa/rsa_decrypt_key.o src/pk/rsa/rsa_encrypt_key.o \
-src/pk/rsa/rsa_export.o src/pk/rsa/rsa_exptmod.o src/pk/rsa/rsa_free.o src/pk/rsa/rsa_get_size.o \
-src/pk/rsa/rsa_import.o src/pk/rsa/rsa_import_radix.o src/pk/rsa/rsa_make_key.o \
-src/pk/rsa/rsa_sign_hash.o src/pk/rsa/rsa_sign_saltlen_get.o src/pk/rsa/rsa_verify_hash.o \
-src/prngs/fortuna.o src/prngs/rc4.o src/prngs/rng_get_bytes.o src/prngs/rng_make_prng.o \
-src/prngs/sober128.o src/prngs/sprng.o src/prngs/yarrow.o
+src/pk/ecc/ecc_dp_clear.o src/pk/ecc/ecc_dp_fill_from_sets.o src/pk/ecc/ecc_dp_from_oid.o \
+src/pk/ecc/ecc_dp_from_params.o src/pk/ecc/ecc_dp_init.o src/pk/ecc/ecc_dp_set.o \
+src/pk/ecc/ecc_encrypt_key.o src/pk/ecc/ecc_export.o src/pk/ecc/ecc_export_full.o \
+src/pk/ecc/ecc_export_raw.o src/pk/ecc/ecc_free.o src/pk/ecc/ecc_get_size.o src/pk/ecc/ecc_import.o \
+src/pk/ecc/ecc_import_full.o src/pk/ecc/ecc_import_pkcs8.o src/pk/ecc/ecc_import_raw.o \
+src/pk/ecc/ecc_make_key.o src/pk/ecc/ecc_shared_secret.o src/pk/ecc/ecc_sign_hash.o \
+src/pk/ecc/ecc_sizes.o src/pk/ecc/ecc_test.o src/pk/ecc/ecc_verify_hash.o src/pk/ecc/ecc_verify_key.o \
+src/pk/ecc/ltc_ecc_is_point.o src/pk/ecc/ltc_ecc_is_valid_idx.o src/pk/ecc/ltc_ecc_map.o \
+src/pk/ecc/ltc_ecc_mul2add.o src/pk/ecc/ltc_ecc_mulmod.o src/pk/ecc/ltc_ecc_mulmod_timing.o \
+src/pk/ecc/ltc_ecc_points.o src/pk/ecc/ltc_ecc_projective_add_point.o \
+src/pk/ecc/ltc_ecc_projective_dbl_point.o src/pk/katja/katja_decrypt_key.o \
+src/pk/katja/katja_encrypt_key.o src/pk/katja/katja_export.o src/pk/katja/katja_exptmod.o \
+src/pk/katja/katja_free.o src/pk/katja/katja_import.o src/pk/katja/katja_make_key.o \
+src/pk/pkcs1/pkcs_1_i2osp.o src/pk/pkcs1/pkcs_1_mgf1.o src/pk/pkcs1/pkcs_1_oaep_decode.o \
+src/pk/pkcs1/pkcs_1_oaep_encode.o src/pk/pkcs1/pkcs_1_os2ip.o src/pk/pkcs1/pkcs_1_pss_decode.o \
+src/pk/pkcs1/pkcs_1_pss_encode.o src/pk/pkcs1/pkcs_1_v1_5_decode.o src/pk/pkcs1/pkcs_1_v1_5_encode.o \
+src/pk/rsa/rsa_decrypt_key.o src/pk/rsa/rsa_encrypt_key.o src/pk/rsa/rsa_export.o \
+src/pk/rsa/rsa_exptmod.o src/pk/rsa/rsa_free.o src/pk/rsa/rsa_get_size.o src/pk/rsa/rsa_import.o \
+src/pk/rsa/rsa_import_radix.o src/pk/rsa/rsa_make_key.o src/pk/rsa/rsa_sign_hash.o \
+src/pk/rsa/rsa_sign_saltlen_get.o src/pk/rsa/rsa_verify_hash.o src/prngs/fortuna.o src/prngs/rc4.o \
+src/prngs/rng_get_bytes.o src/prngs/rng_make_prng.o src/prngs/sober128.o src/prngs/sprng.o \
+src/prngs/yarrow.o
 
 HEADERS=src/headers/tomcrypt.h src/headers/tomcrypt_argchk.h src/headers/tomcrypt_cfg.h \
 src/headers/tomcrypt_cipher.h src/headers/tomcrypt_custom.h src/headers/tomcrypt_hash.h \
