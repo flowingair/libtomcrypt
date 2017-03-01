@@ -1910,6 +1910,10 @@
 					>
 				</File>
 				<File
+					RelativePath="src\pk\rsa\rsa_import_pkcs8.c"
+					>
+				</File>
+				<File
 					RelativePath="src\pk\rsa\rsa_import_radix.c"
 					>
 				</File>
