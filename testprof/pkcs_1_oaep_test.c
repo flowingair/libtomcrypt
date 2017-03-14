@@ -10,7 +10,7 @@ int pkcs_1_oaep_test(void)
 {
   int prng_idx = register_prng(&no_prng_desc);
   int hash_idx = find_hash("sha1");
-  unsigned int i;
+  unsigned int i, j;
 
   DO(prng_is_valid(prng_idx));
   DO(hash_is_valid(hash_idx));
@@ -31,12 +31,11 @@ int pkcs_1_oaep_test(void)
     DOX(mp_read_unsigned_bin(key->p, t->rsa.p, t->rsa.p_l), t->name);
     key->type = PK_PRIVATE;
 
-    unsigned int j;
     for (j = 0; j < sizeof(t->data)/sizeof(t->data[0]); ++j) {
-        rsaData_t* s = &t->data[j];
         unsigned char buf[256], obuf[256];
         unsigned long buflen = sizeof(buf), obuflen = sizeof(obuf);
         int stat;
+        rsaData_t* s = &t->data[j];
         prng_descriptor[prng_idx].add_entropy(s->o2, s->o2_l, NULL);
         DOX(rsa_encrypt_key(s->o1, s->o1_l, obuf, &obuflen, NULL, 0, NULL, prng_idx, hash_idx, key), s->name);
         DOX(obuflen == (unsigned long)s->o3_l?CRYPT_OK:CRYPT_FAIL_TESTVECTOR, s->name);

@@ -10,7 +10,7 @@ int pkcs_1_pss_test(void)
 {
   int prng_idx = register_prng(&no_prng_desc);
   int hash_idx = find_hash("sha1");
-  unsigned int i;
+  unsigned int i, j;
 
   DO(prng_is_valid(prng_idx));
   DO(hash_is_valid(hash_idx));
@@ -31,12 +31,11 @@ int pkcs_1_pss_test(void)
     DOX(mp_read_unsigned_bin(key->p, t->rsa.p, t->rsa.p_l), t->name);
     key->type = PK_PRIVATE;
 
-    unsigned int j;
     for (j = 0; j < sizeof(t->data)/sizeof(t->data[0]); ++j) {
-        rsaData_t* s = &t->data[j];
         unsigned char buf[20], obuf[256];
         unsigned long buflen = sizeof(buf), obuflen = sizeof(obuf);
         int stat;
+        rsaData_t* s = &t->data[j];
         prng_descriptor[prng_idx].add_entropy(s->o2, s->o2_l, NULL);
         DOX(hash_memory(hash_idx, s->o1, s->o1_l, buf, &buflen), s->name);
         DOX(rsa_sign_hash(buf, buflen, obuf, &obuflen, NULL, prng_idx, hash_idx, s->o2_l, key), s->name);

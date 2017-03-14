@@ -490,7 +490,6 @@ int time_keysched(void)
 
 int time_cipher(void)
 {
-  fprintf(stderr, "\n\nECB Time Trials for the Symmetric Ciphers:\n");
 #ifdef LTC_ECB_MODE
   unsigned long x, y1;
   ulong64  t1, t2, c1, c2, a1, a2;
@@ -498,6 +497,7 @@ int time_cipher(void)
   unsigned char key[MAXBLOCKSIZE], pt[4096];
   int err;
 
+  fprintf(stderr, "\n\nECB Time Trials for the Symmetric Ciphers:\n");
   no_results = 0;
   for (x = 0; cipher_descriptor[x].name != NULL; x++) {
     ecb_start(x, key, cipher_descriptor[x].min_key_length, 0, &ecb);
