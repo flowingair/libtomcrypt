@@ -124,6 +124,9 @@ const char *crypt_build_settings =
 #if defined(LTC_CAMELLIA)
    "   Camellia\n"
 #endif
+#if defined(LTC_CHACHA)
+   "   ChaCha\n"
+#endif
 
     "\nHashes built-in:\n"
 #if defined(LTC_SHA512)
@@ -227,6 +230,9 @@ const char *crypt_build_settings =
 #if defined(LTC_F9_MODE)
     "   F9\n"
 #endif
+#if defined(LTC_POLY1305)
+    "   POLY1305\n"
+#endif
 
     "\nENC + AUTH modes:\n"
 #if defined(LTC_EAX_MODE)
@@ -250,6 +256,9 @@ const char *crypt_build_settings =
     " (SSE2) "
 #endif
    "\n"
+#endif
+#if defined(LTC_CHACHA20POLY1305_MODE)
+    "   CHACHA20POLY1305\n"
 #endif
 
     "\nPRNG:\n"
