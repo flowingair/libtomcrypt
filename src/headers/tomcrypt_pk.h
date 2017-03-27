@@ -305,7 +305,7 @@ void ecc_free(ecc_key *key);
 int  ecc_export(unsigned char *out, unsigned long *outlen, int type, ecc_key *key);
 int  ecc_import(const unsigned char *in, unsigned long inlen, ecc_key *key);
 int  ecc_import_ex(const unsigned char *in, unsigned long inlen, ecc_key *key, const ltc_ecc_set_type *dp);
-int  ecc_import_pkcs8(unsigned char *in, unsigned long inlen, ecc_key *key, ltc_ecc_set_type *dp);
+int  ecc_import_pkcs8(const unsigned char *in,  unsigned long inlen, const unsigned char *pwd, unsigned long pwdlen, ecc_key *key, ltc_ecc_set_type *dp);
 int  ecc_export_full(unsigned char *out, unsigned long *outlen, int type, ecc_key *key);
 int  ecc_import_full(const unsigned char *in, unsigned long inlen, ecc_key *key, ltc_ecc_set_type *dp);
 int  ecc_export_point(unsigned char *out, unsigned long *outlen, void *x, void *y, unsigned long size, int compressed);
