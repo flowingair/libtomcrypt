@@ -31,7 +31,7 @@ int ecc_verify_key(ecc_key *key)
   void *order = NULL;
   void *a = NULL;
   ecc_point *test_output = NULL;
-  test_output = malloc(sizeof(ecc_point));
+  test_output = XMALLOC(sizeof(ecc_point));
 
   if (mp_init_multi(&(test_output->x), &(test_output->y), &(test_output->z), &order, &prime, NULL) != CRYPT_OK) {
     return CRYPT_MEM;

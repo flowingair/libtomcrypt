@@ -220,7 +220,7 @@ int der_encode_sequence_ex(ltc_asn1_list *list, unsigned long inlen,
             y = 5;
          }
          memmove(out + x + y, out + x, z);
-         memcpy(out + x, tmptag, y);
+         XMEMCPY(out + x, tmptag, y);
 
          z += y;
        }
