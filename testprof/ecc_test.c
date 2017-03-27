@@ -30,7 +30,7 @@ static unsigned int sizes[] = {
 };
 
 #ifdef LTC_ECC_SHAMIR
-int ecc_test_shamir(void)
+static int _ecc_test_shamir(void)
 {
    void *a, *modulus, *mp, *kA, *kB, *rA, *rB;
    ecc_point *G, *A, *B, *C1, *C2;
@@ -106,14 +106,75 @@ int ecc_test_shamir(void)
 }
 #endif
 
-int ecc_tests (void)
+static int _ecc_test_mp(void)
+{
+   void       *a, *modulus, *order;
+   ecc_point  *G, *GG;
+   int        i, err, primality;
+
+   if ((err = mp_init_multi(&modulus, &order, &a, NULL)) != CRYPT_OK) {
+      return err;
+   }
+
+   G   = ltc_ecc_new_point();
+   GG  = ltc_ecc_new_point();
+   if (G == NULL || GG == NULL) {
+      mp_clear_multi(modulus, order, NULL);
+      ltc_ecc_del_point(G);
+      ltc_ecc_del_point(GG);
+      return CRYPT_MEM;
+   }
+
+   for (i = 0; ltc_ecc_sets[i].size; i++) {
+      #if 0
+         printf("Testing %d\n", ltc_ecc_sets[i].size);
+      #endif
+      if ((err = mp_read_radix(a, (char *)ltc_ecc_sets[i].A,  16)) != CRYPT_OK)            { goto done; }
+      if ((err = mp_read_radix(modulus, (char *)ltc_ecc_sets[i].prime, 16)) != CRYPT_OK)   { goto done; }
+      if ((err = mp_read_radix(order, (char *)ltc_ecc_sets[i].order, 16)) != CRYPT_OK)     { goto done; }
+
+      /* is prime actually prime? */
+      if ((err = mp_prime_is_prime(modulus, 8, &primality)) != CRYPT_OK)                   { goto done; }
+      if (primality == 0) {
+         err = CRYPT_FAIL_TESTVECTOR;
+         goto done;
+      }
+
+      /* is order prime ? */
+      if ((err = mp_prime_is_prime(order, 8, &primality)) != CRYPT_OK)                     { goto done; }
+      if (primality == 0) {
+         err = CRYPT_FAIL_TESTVECTOR;
+         goto done;
+      }
+
+      if ((err = mp_read_radix(G->x, (char *)ltc_ecc_sets[i].Gx, 16)) != CRYPT_OK)         { goto done; }
+      if ((err = mp_read_radix(G->y, (char *)ltc_ecc_sets[i].Gy, 16)) != CRYPT_OK)         { goto done; }
+      mp_set(G->z, 1);
+
+      /* then we should have G == (order + 1)G */
+      if ((err = mp_add_d(order, 1, order)) != CRYPT_OK)                                   { goto done; }
+      if ((err = ltc_mp.ecc_ptmul(order, G, GG, a, modulus, 1)) != CRYPT_OK)               { goto done; }
+      if (mp_cmp(G->x, GG->x) != LTC_MP_EQ || mp_cmp(G->y, GG->y) != LTC_MP_EQ) {
+         err = CRYPT_FAIL_TESTVECTOR;
+         goto done;
+      }
+   }
+   err = CRYPT_OK;
+done:
+   ltc_ecc_del_point(GG);
+   ltc_ecc_del_point(G);
+   mp_clear_multi(order, modulus, a, NULL);
+   return err;
+}
+
+int ecc_test(void)
 {
   unsigned char buf[4][4096];
   unsigned long x, y, z, s;
   int           stat, stat2;
   ecc_key usera, userb, pubKey, privKey;
 
-  DO(ecc_test ());
+  DO(_ecc_test_mp());
 
   for (s = 0; s < (sizeof(sizes)/sizeof(sizes[0])); s++) {
      /* make up two keys */
@@ -228,7 +289,7 @@ int ecc_tests (void)
      ecc_free (&privKey);
   }
 #ifdef LTC_ECC_SHAMIR
-  return ecc_test_shamir();
+  return _ecc_test_shamir();
 #else
   return 0;
 #endif
@@ -236,7 +297,7 @@ int ecc_tests (void)
 
 #else
 
-int ecc_tests(void)
+int ecc_test(void)
 {
    fprintf(stderr, "NOP");
    return 0;

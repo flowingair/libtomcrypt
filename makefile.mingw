@@ -164,7 +164,7 @@ src/pk/ecc/ecc_encrypt_key.o src/pk/ecc/ecc_export.o src/pk/ecc/ecc_export_full.
 src/pk/ecc/ecc_export_raw.o src/pk/ecc/ecc_free.o src/pk/ecc/ecc_get_size.o src/pk/ecc/ecc_import.o \
 src/pk/ecc/ecc_import_full.o src/pk/ecc/ecc_import_pkcs8.o src/pk/ecc/ecc_import_raw.o \
 src/pk/ecc/ecc_make_key.o src/pk/ecc/ecc_shared_secret.o src/pk/ecc/ecc_sign_hash.o \
-src/pk/ecc/ecc_sizes.o src/pk/ecc/ecc_test.o src/pk/ecc/ecc_verify_hash.o src/pk/ecc/ecc_verify_key.o \
+src/pk/ecc/ecc_sizes.o src/pk/ecc/ecc_verify_hash.o src/pk/ecc/ecc_verify_key.o \
 src/pk/ecc/ltc_ecc_is_point.o src/pk/ecc/ltc_ecc_is_valid_idx.o src/pk/ecc/ltc_ecc_map.o \
 src/pk/ecc/ltc_ecc_mul2add.o src/pk/ecc/ltc_ecc_mulmod.o src/pk/ecc/ltc_ecc_mulmod_timing.o \
 src/pk/ecc/ltc_ecc_points.o src/pk/ecc/ltc_ecc_projective_add_point.o \

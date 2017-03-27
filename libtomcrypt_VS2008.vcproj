@@ -1816,10 +1816,6 @@
 					>
 				</File>
 				<File
-					RelativePath="src\pk\ecc\ecc_test.c"
-					>
-				</File>
-				<File
 					RelativePath="src\pk\ecc\ecc_verify_hash.c"
 					>
 				</File>

@@ -122,7 +122,7 @@ src/pk/ecc/ecc_encrypt_key.obj src/pk/ecc/ecc_export.obj src/pk/ecc/ecc_export_f
 src/pk/ecc/ecc_export_raw.obj src/pk/ecc/ecc_free.obj src/pk/ecc/ecc_get_size.obj src/pk/ecc/ecc_import.obj \
 src/pk/ecc/ecc_import_full.obj src/pk/ecc/ecc_import_pkcs8.obj src/pk/ecc/ecc_import_raw.obj \
 src/pk/ecc/ecc_make_key.obj src/pk/ecc/ecc_shared_secret.obj src/pk/ecc/ecc_sign_hash.obj \
-src/pk/ecc/ecc_sizes.obj src/pk/ecc/ecc_test.obj src/pk/ecc/ecc_verify_hash.obj src/pk/ecc/ecc_verify_key.obj \
+src/pk/ecc/ecc_sizes.obj src/pk/ecc/ecc_verify_hash.obj src/pk/ecc/ecc_verify_key.obj \
 src/pk/ecc/ltc_ecc_is_point.obj src/pk/ecc/ltc_ecc_is_valid_idx.obj src/pk/ecc/ltc_ecc_map.obj \
 src/pk/ecc/ltc_ecc_mul2add.obj src/pk/ecc/ltc_ecc_mulmod.obj src/pk/ecc/ltc_ecc_mulmod_timing.obj \
 src/pk/ecc/ltc_ecc_points.obj src/pk/ecc/ltc_ecc_projective_add_point.obj \
