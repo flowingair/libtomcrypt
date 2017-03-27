@@ -106,6 +106,44 @@ static int _ecc_test_shamir(void)
 }
 #endif
 
+static int _ecc_issue108(void)
+{
+   void      *a, *modulus, *order;
+   ecc_point *Q, *Result;
+   int       i, err;
+
+   /* init */
+   if ((err = mp_init_multi(&modulus, &order, &a, NULL)) != CRYPT_OK) { return err; }
+   Q      = ltc_ecc_new_point();
+   Result = ltc_ecc_new_point();
+
+   /* ECC-224 */
+   i = 13;
+   /* read A */
+   if ((err = mp_read_radix(a, (char *)ltc_ecc_sets[i].A,  16)) != CRYPT_OK)          { goto done; }
+   /* read modulus */
+   if ((err = mp_read_radix(modulus, (char *)ltc_ecc_sets[i].prime, 16)) != CRYPT_OK) { goto done; }
+   /* read order */
+   if ((err = mp_read_radix(order, (char *)ltc_ecc_sets[i].order, 16)) != CRYPT_OK)   { goto done; }
+   /* read Q */
+   if ((err = mp_read_radix(Q->x, (char *)"EA3745501BBC6A70BBFDD8AEEDB18CF5073C6DC9AA7CBB5915170D60", 16)) != CRYPT_OK) { goto done; }
+   if ((err = mp_read_radix(Q->y, (char *)"6C9CB8E68AABFEC989CAC5E2326E0448B7E69C3E56039BA21A44FDAC", 16)) != CRYPT_OK) { goto done; }
+   mp_set(Q->z, 1);
+   /* calculate nQ */
+
+/*XXX-FIXME: test stucks inside ecc_ptmul()
+   fprintf(stderr, "BF.ecc_ptmul\n");
+   if ((err = ltc_mp.ecc_ptmul(order, Q, Result, a, modulus, 1)) != CRYPT_OK)
+   fprintf(stderr, "AF.ecc_ptmul\n");
+XXX*/
+
+done:
+   ltc_ecc_del_point(Result);
+   ltc_ecc_del_point(Q);
+   mp_clear_multi(modulus, order, a, NULL);
+   return err;
+}
+
 static int _ecc_test_mp(void)
 {
    void       *a, *modulus, *order;
@@ -175,6 +213,7 @@ int ecc_test(void)
   ecc_key usera, userb, pubKey, privKey;
 
   DO(_ecc_test_mp());
+  DO(_ecc_issue108());
 
   for (s = 0; s < (sizeof(sizes)/sizeof(sizes[0])); s++) {
      /* make up two keys */
