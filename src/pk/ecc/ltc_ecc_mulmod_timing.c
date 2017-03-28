@@ -46,6 +46,14 @@ int ltc_ecc_mulmod(void *k, ecc_point *G, ecc_point *R, void *a, void *modulus, 
    LTC_ARGCHK(R       != NULL);
    LTC_ARGCHK(modulus != NULL);
 
+   if (ltc_ecc_is_point_at_infinity(G, modulus)) {
+      /* return the point at infinity */
+      if ((err = mp_set(R->x, 1)) != CRYPT_OK) { return err; }
+      if ((err = mp_set(R->y, 1)) != CRYPT_OK) { return err; }
+      if ((err = mp_set(R->z, 0)) != CRYPT_OK) { return err; }
+      return CRYPT_OK;
+   }
+
    /* init montgomery reduction */
    if ((err = mp_montgomery_setup(modulus, &mp)) != CRYPT_OK) {
       return err;
