@@ -130,12 +130,7 @@ static int _ecc_issue108(void)
    if ((err = mp_read_radix(Q->y, (char *)"6C9CB8E68AABFEC989CAC5E2326E0448B7E69C3E56039BA21A44FDAC", 16)) != CRYPT_OK) { goto done; }
    mp_set(Q->z, 1);
    /* calculate nQ */
-
-/*XXX-FIXME: test stucks inside ecc_ptmul()
-   fprintf(stderr, "BF.ecc_ptmul\n");
-   if ((err = ltc_mp.ecc_ptmul(order, Q, Result, a, modulus, 1)) != CRYPT_OK)
-   fprintf(stderr, "AF.ecc_ptmul\n");
-XXX*/
+   if ((err = ltc_mp.ecc_ptmul(order, Q, Result, a, modulus, 1)) != CRYPT_OK)  { goto done; }
 
 done:
    ltc_ecc_del_point(Result);
