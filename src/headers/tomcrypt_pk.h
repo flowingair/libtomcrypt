@@ -352,6 +352,7 @@ ecc_point *ltc_ecc_new_point(void);
 void       ltc_ecc_del_point(ecc_point *p);
 int        ltc_ecc_is_valid_idx(int n);
 int        ltc_ecc_is_point(const ltc_ecc_set_type *dp, void *x, void *y);
+int        ltc_ecc_is_point_at_infinity(ecc_point *p, void *modulus);
 
 /* point ops (mp == montgomery digit) */
 #if !defined(LTC_MECC_ACCEL) || defined(LTM_DESC) || defined(GMP_DESC)

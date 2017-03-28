@@ -45,14 +45,36 @@ int ltc_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R, void 
       return err;
    }
 
-   /* should we dbl instead? */
-   if ((err = mp_sub(modulus, Q->y, t1)) != CRYPT_OK)                          { goto done; }
+   if (ltc_ecc_is_point_at_infinity(P, modulus)) {
+      /* P is point at infinity >> Result = Q */
+      if ((err = ltc_mp.copy(Q->x, R->x)) != CRYPT_OK)                         { goto done; }
+      if ((err = ltc_mp.copy(Q->y, R->y)) != CRYPT_OK)                         { goto done; }
+      if ((err = ltc_mp.copy(Q->z, R->z)) != CRYPT_OK)                         { goto done; }
+      goto done; /* CRYPT_OK */
+   }
 
-   if ( (mp_cmp(P->x, Q->x) == LTC_MP_EQ) &&
-        (Q->z != NULL && mp_cmp(P->z, Q->z) == LTC_MP_EQ) &&
-        (mp_cmp(P->y, Q->y) == LTC_MP_EQ || mp_cmp(P->y, t1) == LTC_MP_EQ)) {
-        mp_clear_multi(t1, t2, x, y, z, NULL);
-        return ltc_ecc_projective_dbl_point(P, R, a, modulus, mp);
+   if (ltc_ecc_is_point_at_infinity(Q, modulus)) {
+      /* Q is point at infinity >> Result = P */
+      if ((err = ltc_mp.copy(P->x, R->x)) != CRYPT_OK)                         { goto done; }
+      if ((err = ltc_mp.copy(P->y, R->y)) != CRYPT_OK)                         { goto done; }
+      if ((err = ltc_mp.copy(P->z, R->z)) != CRYPT_OK)                         { goto done; }
+      goto done; /* CRYPT_OK */
+   }
+
+   if ((mp_cmp(P->x, Q->x) == LTC_MP_EQ) && (mp_cmp(P->z, Q->z) == LTC_MP_EQ)) {
+      if (mp_cmp(P->y, Q->y) == LTC_MP_EQ) {
+         /* here P = Q >> Result = 2 * P (use doubling) */
+         mp_clear_multi(t1, t2, x, y, z, NULL);
+         return ltc_ecc_projective_dbl_point(P, R, a, modulus, mp);
+      }
+      if ((err = mp_sub(modulus, Q->y, t1)) != CRYPT_OK)                       { goto done; }
+      if (mp_cmp(P->y, t1) == LTC_MP_EQ) {
+         /* here Q = -P >>> Result = the point at infinity */
+         if ((err = ltc_mp.set_int(R->x, 1)) != CRYPT_OK)                      { goto done; }
+         if ((err = ltc_mp.set_int(R->y, 1)) != CRYPT_OK)                      { goto done; }
+         if ((err = ltc_mp.set_int(R->z, 0)) != CRYPT_OK)                      { goto done; }
+         goto done; /* CRYPT_OK */
+      }
    }
 
    if ((err = mp_copy(P->x, x)) != CRYPT_OK)                                   { goto done; }

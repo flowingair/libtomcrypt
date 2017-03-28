@@ -68,6 +68,14 @@ int ltc_ecc_projective_dbl_point(ecc_point *P, ecc_point *R, void *a, void *modu
       if ((err = mp_copy(P->z, R->z)) != CRYPT_OK)                                { goto done; }
    }
 
+   if (ltc_ecc_is_point_at_infinity(P, modulus)) {
+      /* if P is point at infinity >> Result = point at infinity */
+      if ((err = ltc_mp.set_int(R->x, 1)) != CRYPT_OK)                            { goto done; }
+      if ((err = ltc_mp.set_int(R->y, 1)) != CRYPT_OK)                            { goto done; }
+      if ((err = ltc_mp.set_int(R->z, 0)) != CRYPT_OK)                            { goto done; }
+      goto done; /* CRYPT_OK */
+   }
+
    /* t1 = Z * Z */
    if ((err = mp_sqr(R->z, t1)) != CRYPT_OK)                                      { goto done; }
    if ((err = mp_montgomery_reduce(t1, modulus, mp)) != CRYPT_OK)                 { goto done; }
